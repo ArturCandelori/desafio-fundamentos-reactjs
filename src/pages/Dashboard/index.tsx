@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { parse, parseISO, getDecade, getISODay } from 'date-fns';
 
-import { title } from 'process';
-import { formatISO } from 'date-fns/esm';
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
 import total from '../../assets/total.svg';
@@ -111,14 +108,11 @@ const Dashboard: React.FC = () => {
               {transactions.map(transaction => (
                 <tr>
                   <td className="title">{transaction.title}</td>
-                  {transaction.type === 'income' ? (
-                    <td className="income">{transaction.formattedValue}</td>
-                  ) : (
-                    <td className="outcome">
-                      {'- '}
-                      {transaction.formattedValue}
-                    </td>
-                  )}
+                  <td className={transaction.type}>
+                    {transaction.type === 'outcome' && '- '}
+                    {transaction.formattedValue}
+                  </td>
+
                   <td>{transaction.category?.title || 'N/A'}</td>
                   <td>{transaction.formattedDate}</td>
                 </tr>
